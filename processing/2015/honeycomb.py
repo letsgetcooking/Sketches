@@ -1,10 +1,11 @@
-# For this sketch third-party library is required http://www.gicentre.net/handy/
 from org.gicentre.handy import HandyRenderer
 
 
 RECORD = False
 FPS = 30.0
 PERIOD = 2
+ROW_NUMBER, COL_NUMBER = 6, 7
+HEX_SIZE = 30
 
 
 class HexagonGenerator(object):
@@ -40,26 +41,29 @@ def setup():
     h.setBackgroundColour(0)
 
 def draw():
-    row_number, col_number = 6, 7
-    center = (row_number - 1) // 2, (col_number - 1) // 2
-    # h.setSeed(1234)
+    center = (ROW_NUMBER - 1) // 2, (COL_NUMBER - 1) // 2
     background(0)
-    offset = 80
-    translate(offset, offset)
-    hex_gen = HexagonGenerator(30, 3)
+    hex_gen = HexagonGenerator(HEX_SIZE, 3)
+    offset_x = (width - COL_NUMBER * hex_gen.col_width + hex_gen.col_width /
+        2.0) / 2
+    offset_y = (height - ROW_NUMBER * hex_gen.row_height) / 2
+    translate(offset_x, offset_y)
     colorMode(HSB, 100)
-    for row in range(row_number):
-        for col in range(col_number):
-            if row == row_number - 1 and col % 2 == 1: continue
-            rad = 1.5 * hex_gen.row_height * row_number * (frameCount % (FPS * PERIOD)) / (FPS * PERIOD) - 150
+    for row in range(ROW_NUMBER):
+        for col in range(COL_NUMBER):
+            if row == ROW_NUMBER - 1 and col % 2 == 1: continue
+            rad = (1.5 * hex_gen.row_height * ROW_NUMBER * (frameCount % (FPS *
+                PERIOD)) / (FPS * PERIOD) - 4 * hex_gen.row_height)
             hexagon = list(hex_gen(row, col))
             hexc = [0, 0]
             for x, y in hexagon:
                 hexc = hexc[0] + x, hexc[1] + y
-            hexc = hexc[0] / 6.0 - (width / 2 - offset), hexc[1] / 6.0 - (height / 2 - offset)
-            hu = (row + col) * 10
+            hexc = (hexc[0] / 6.0 - (width / 2 - offset_x), hexc[1] / 6.0 -
+                (height / 2 - offset_y))
+            hu = 100 * (row + col) / (ROW_NUMBER + COL_NUMBER)
             sat = 100
-            br = 100 - constrain(abs(sqrt(hexc[0] ** 2 + hexc[1] ** 2) - rad), 0, 100)
+            br = (100 - constrain(abs(sqrt(hexc[0] ** 2 + hexc[1] ** 2) - rad),
+                0, 100))
             stroke(0, 0, br)
             fill(hu, sat, br)
             h.beginShape()
