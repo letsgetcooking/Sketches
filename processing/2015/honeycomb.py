@@ -1,3 +1,4 @@
+# For this sketch third-party library is required http://www.gicentre.net/handy/
 from org.gicentre.handy import HandyRenderer
 
 
