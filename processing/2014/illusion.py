@@ -24,4 +24,3 @@ def draw():
     saveFrame("png/illusion-1###.png")
     if frameCount >= N_FRAMES:
         exit()
-
