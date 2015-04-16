@@ -1,6 +1,7 @@
+N_WORMS = 8.0
 FPS = 30.0
 RECORD = False
-PI = ('3.14159265358979323846264338327950288419716939937510582097494'
+PI_STR = ('3.14159265358979323846264338327950288419716939937510582097494'
 '459230781640628620899862803482534211706798214808651328230664709384'
 '460955058223172535940812848111745028410270193852110555964462294895'
 '493038196442881097566593344612847564823378678316527120190914564856'
@@ -43,13 +44,14 @@ class Segment(object):
             
             
 def make_pi_frame():
-    with pushMatrix():
-        n = int(width/7.7)
-        for i in range(4):
-            pi_frag = PI[i*n:(i+1)*n]
-            text(pi_frag, 12, 10)
-            translate(width, 0)
-            rotate(PI/2)
+    pushMatrix()
+    n = int(width / 8)
+    for i in range(4):
+        pi_frag = PI_STR[i*n:(i+1)*n]
+        text(pi_frag, 12, 10)
+        translate(width, 0)
+        rotate(PI / 2)
+    popMatrix()
         
 def setup():
     global worms
@@ -60,7 +62,7 @@ def setup():
     theta1 = 0
     theta2 = 0
     worms = []
-    for i in range(8):
+    for i in range(N_WORMS):
         worms.append(Segment(30, 50))
     
 def draw():
@@ -76,10 +78,9 @@ def draw():
         y = (height - 100) / 2.0 * sin(theta2 + angle) + height / 2.0
         worm.move(x, y)
         worm.draw()
-    theta1 = theta1 + 2 * PI / FPS / 4.0
-    theta2 = theta2 + 2 * PI / FPS / 4.0
-    if RECORD
-:
+    theta1 = theta1 + 2 * PI / FPS / N_WORMS * 2
+    theta2 = theta2 + 2 * PI / FPS / N_WORMS * 2
+    if RECORD:
         if frameCount > 2 * FPS: saveFrame('png/pi-####.png')
-        if frameCount > 2 * FPS + FPS: exit()
+        if frameCount >= 2 * FPS + FPS / 2: exit()
 
