@@ -36,19 +36,19 @@ def setup():
 def draw():
     background(0)
     hex_gen = HexagonGenerator(HEX_SIZE, 5)
-    center = (ROW_NUMBER // 2 * hex_gen.col_width + hex_gen.col_width / 3,
+    center = (ROW_NUMBER // 2 * hex_gen.col_width + hex_gen.col_width / PI,
         (COL_NUMBER - 1) // 2 * hex_gen.row_height)
     offset_x = (width - COL_NUMBER * hex_gen.col_width + hex_gen.col_width /
-        2.0) / 2
+        PI) / 2
     offset_y = (height - ROW_NUMBER * hex_gen.row_height) / 2
     translate(offset_x, offset_y)
+    rad = (1.5 * hex_gen.row_height * ROW_NUMBER * (frameCount % (FPS *
+        PERIOD)) / (FPS * PERIOD) - 8 * hex_gen.row_height)
     for row in range(ROW_NUMBER):
         for col in range(COL_NUMBER):
             if row == ROW_NUMBER - 1 and col % 2 == 1: continue
-            rad = (1.5 * hex_gen.row_height * ROW_NUMBER * (frameCount % (FPS *
-                PERIOD)) / (FPS * PERIOD) - 8 * hex_gen.row_height)
             hexagon = list(hex_gen(row, col))
-            hexc = (hexagon[0][0] - hex_gen.col_width / 3 - center[0],
+            hexc = (hexagon[0][0] - hex_gen.col_width / 4 - center[0],
                 hexagon[0][1] + hex_gen.row_height / 2 - center[1])
             alpha = 255 * int(map(constrain(abs(sqrt(hexc[0] ** 2 + hexc[1] ** 2) - rad),
                 0, 100), 0, 100, 0, 1))
