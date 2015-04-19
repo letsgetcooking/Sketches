@@ -49,11 +49,11 @@ def draw():
     offset_y = (height - ROW_NUMBER * hex_gen.row_height) / 2
     translate(offset_x, offset_y)
     colorMode(HSB, 100)
+    rad = (1.5 * hex_gen.row_height * ROW_NUMBER * (frameCount % (FPS *
+        PERIOD)) / (FPS * PERIOD) - 4 * hex_gen.row_height)
     for row in range(ROW_NUMBER):
         for col in range(COL_NUMBER):
             if row == ROW_NUMBER - 1 and col % 2 == 1: continue
-            rad = (1.5 * hex_gen.row_height * ROW_NUMBER * (frameCount % (FPS *
-                PERIOD)) / (FPS * PERIOD) - 4 * hex_gen.row_height)
             hexagon = list(hex_gen(row, col))
             hexc = [0, 0]
             for x, y in hexagon:
