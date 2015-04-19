@@ -34,7 +34,6 @@ class HexagonGenerator(object):
 
 def setup():
     global h
-    global img
     size(480, 480)
     frameRate(FPS)
     h = HandyRenderer(this)
