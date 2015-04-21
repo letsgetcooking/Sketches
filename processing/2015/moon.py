@@ -31,7 +31,7 @@ def make_interlace(interlace):
     interlace_img.loadPixels()
     for i in range(width):
         for j in range(height):
-            interlace_img.pixels[j * height + i] = color(255 *
+            interlace_img.pixels[j * width + i] = color(255 *
                 (1 - constrain(sin(j / 1.5), interlace, 1) + interlace))
     interlace_img.updatePixels()
     return interlace_img
