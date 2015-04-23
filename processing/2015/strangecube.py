@@ -1,6 +1,6 @@
 W, H = 480, 480
 FPS = 20.0
-RECORD = False
+RECORD = True
 N_SAMPLES = 4
 CW = 100
 PERIOD = 3.0
@@ -55,6 +55,7 @@ def draw():
         for i, rgb in enumerate(result):
             pixels[i] = color(rgb[0] / N_SAMPLES, rgb[1] / N_SAMPLES, rgb[2] / N_SAMPLES)
         updatePixels()
-        if frameCount >= N_FRAMES:
+        if frameCount <= N_FRAMES:
+            saveFrame('png/####.png')
+        else:
             exit()
-        saveFrame('png/####.png')
