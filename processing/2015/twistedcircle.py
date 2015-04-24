@@ -1,10 +1,10 @@
 W = H = 480
 FPS = 20.0
-SPEED = 6.0
-BG_COLOR = color(47, 60, 47)
-RECORD = False
+SPEED = 3.0
+BG_COLOR = color(27, 40, 27)
+RECORD = True
 TWIST = 8.0
-TWIST_SPEED = 10.0
+TWIST_SPEED = 5.0
 R = 150
 
 
@@ -17,8 +17,11 @@ def setup():
     colorMode(HSB, 100)
 
 def draw():
-    theta = TWIST * constrain(sin(2 * PI * (((frameCount % (SPEED * FPS)) /
-        TWIST_SPEED) % FPS) / FPS + 5 * PI / 6), -1, 0)
+    if (frameCount // (SPEED * FPS)) % 2 == 1:
+        theta = TWIST * constrain(sin(2 * PI * (((frameCount % (SPEED * FPS)) /
+            TWIST_SPEED) % FPS) / FPS + 5 * PI / 6), -1, 0)
+    else:
+        theta = 0
     background(BG_COLOR)
     beginShape()
     translate(width / 2, height / 2, 0)
