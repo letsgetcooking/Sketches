@@ -8,13 +8,7 @@ precision mediump int;
 
 uniform float time;
 uniform vec2 resolution;
-uniform vec2 position1;
-uniform vec2 position2;
-uniform vec2 position3;
-uniform vec2 position4;
-uniform vec2 position5;
-uniform vec2 position6;
-uniform vec2 position7;
+
 uniform vec2 size;
 
 varying vec4 vertColor;
@@ -35,13 +29,13 @@ void main()
 {
     vec2 uv = gl_FragCoord.xy / resolution.xy;
     uv.y = 1.0 - uv.y;
-    vec2 pos1 = position1.xy / resolution.xy;
-    vec2 pos2 = position2.xy / resolution.xy;
-    vec2 pos3 = position3.xy / resolution.xy;
-    vec2 pos4 = position4.xy / resolution.xy;
-    vec2 pos5 = position5.xy / resolution.xy;
-    vec2 pos6 = position6.xy / resolution.xy;
-    vec2 pos7 = position7.xy / resolution.xy;
+    vec2 pos1 = vec2(resolution.x / 4.0, resolution.y / 4.0) / resolution.xy;
+    vec2 pos2 = vec2(5.0 * resolution.x / 6.0, resolution.y / 4.0) / resolution.xy;
+    vec2 pos3 = vec2(-resolution.x / 6.0, resolution.y / 7.0) / resolution.xy;
+    vec2 pos4 = vec2(4.0 * resolution.x / 3.0, resolution.y / 4.0) / resolution.xy;
+    vec2 pos5 = vec2(resolution.x / 2.0, 6.0 * resolution.y / 5.0) / resolution.xy;
+    vec2 pos6 = vec2(-resolution.x / 9.0, resolution.y / 2.0) / resolution.xy;
+    vec2 pos7 = vec2(10.0 * resolution.x / 9.0, resolution.y / 2.0) / resolution.xy;
     
     float dist1 = length(uv.xy - pos1.xy);
     float dist2 = length(uv.xy - pos2.xy);
