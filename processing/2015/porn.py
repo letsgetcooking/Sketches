@@ -39,13 +39,6 @@ def setup():
     mshader = loadShader('porn.glsl')
     mshader.set('resolution', float(W), float(H))
     mshader.set('size', float(W / 3), float(H / 3))
-    mshader.set('position1', float(W / 4), float(H / 4))
-    mshader.set('position2', float(5 * W / 6), float(H / 4))
-    mshader.set('position3', float(-W / 6), float(H / 7))
-    mshader.set('position4', float(4 * W / 3), float(H / 7))
-    mshader.set('position5', float(W / 2), float(6 * H / 5))
-    mshader.set('position6', float(-W / 9), float(H / 2))
-    mshader.set('position7', float(10 * W / 9), float(H / 2))
     shader(mshader)
 
 
