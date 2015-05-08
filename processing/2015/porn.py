@@ -36,7 +36,7 @@ def setup():
     global mshader
     size(W, H, P2D)
     frameRate(FPS)
-    mshader = loadShader('colorfrag.glsl')
+    mshader = loadShader('porn.glsl')
     mshader.set('resolution', float(W), float(H))
     mshader.set('size', float(W / 3), float(H / 3))
     mshader.set('position1', float(W / 4), float(H / 4))
