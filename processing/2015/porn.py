@@ -1,3 +1,5 @@
+# porn.glsl shader required
+
 W = H = 480
 FPS = 20.0
 D = 0.8
