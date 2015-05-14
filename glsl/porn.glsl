@@ -4,7 +4,6 @@ precision mediump int;
 #endif
 
 #define PROCESSING_COLOR_SHADER
-#define M_PI 3.1415926535897932384626433832795
 
 uniform float time;
 uniform vec2 resolution;
@@ -12,11 +11,6 @@ uniform vec2 resolution;
 uniform vec2 size;
 
 varying vec4 vertColor;
-
-float bump(float x)
-{
-    return abs(x) > 1.0 ? 0.0 : 1.0 - x * x;
-}
 
 vec3 hsvToRgb(vec3 hsv)
 {
