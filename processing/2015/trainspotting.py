@@ -18,6 +18,7 @@ LIGHT = [(0.15, 0.16), (0.17, 0.2), (0.355, 0.36), (0.365, 0.37), (0.375, 0.38),
 
 def draw_(t):
     global FUNCTIONS_TMP, WEIGHTS_TMP
+    global grain_ctr
     if t < 0.01:
         FUNCTIONS_TMP, WEIGHTS_TMP = FUNCTIONS[:], WEIGHTS[:]
 
@@ -53,9 +54,17 @@ def draw_(t):
         if low < t < high:
             blend(text_fg, 0, 0, W, H, 0, 0, W, H, ADD)
 
+    tint(255, 30)
+    if not frameCount % 3:
+        image(grain[grain_ctr], 0, 0)
+        grain_ctr = (grain_ctr + 1) % len(grain)
+    tint(255, 255)
+
 def setup():
     global text_bg
     global text_fg
+    global grain
+    global grain_ctr
     size(W, H)
     frameRate(FPS)
 
@@ -76,6 +85,11 @@ def setup():
     text_fg.text('TRAINSPOTTING', W / 3, 7 * H / 12)
     text_fg.filter(BLUR, 1)
     text_fg.endDraw()
+
+    grain_ctr = 0
+    grain = []
+    for i in range(10):
+        grain.append(loadImage('grain/grain%i.png' % (i + 1)))
 
 def draw():
     if not RECORD:
