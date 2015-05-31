@@ -3,6 +3,7 @@ FPS = 20.0
 DURATION = 8
 N_FRAMES = DURATION * FPS
 N_SAMPLES = 1
+N_GRAINS = 10
 RECORD = False
 
 FUNCTIONS = [
@@ -29,7 +30,7 @@ def draw_(t):
 
     lines_grey = createGraphics(W, H)
     lines_grey.beginDraw()
-    lines_grey.background(35)
+    lines_grey.background(15)
     lines_grey.stroke(0)
 
     for w, f in zip(WEIGHTS_TMP, FUNCTIONS_TMP):
@@ -54,7 +55,7 @@ def draw_(t):
         if low < t < high:
             blend(text_fg, 0, 0, W, H, 0, 0, W, H, ADD)
 
-    tint(255, 30)
+    tint(255, 50)
     if not frameCount % 3:
         image(grain[grain_ctr], 0, 0)
         grain_ctr = (grain_ctr + 1) % len(grain)
@@ -88,7 +89,7 @@ def setup():
 
     grain_ctr = 0
     grain = []
-    for i in range(10):
+    for i in range(N_GRAINS):
         grain.append(loadImage('grain/grain%i.png' % (i + 1)))
 
 def draw():
