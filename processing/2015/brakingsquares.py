@@ -39,21 +39,21 @@ def break_rect(rect_w, rect_h, n_fragments):
 
     return fragments
 
-def make_matrix(fragments):
-    adj_matrix = dict()
+def make_adj_list(fragments):
+    adj_list = dict()
     for fragment in fragments:
         for i, _vertex in enumerate(fragment):
-            if not _vertex in adj_matrix:
-                adj_matrix[_vertex.copy()] = set()
-            adj_matrix[_vertex.copy()].add(fragment.vertices[(i+1)%len(fragment.vertices)].copy())
-            adj_matrix[_vertex.copy()].add(fragment.vertices[(i-1)%len(fragment.vertices)].copy())
+            if not _vertex in adj_list:
+                adj_list[_vertex.copy()] = set()
+            adj_list[_vertex.copy()].add(fragment.vertices[(i+1)%len(fragment.vertices)].copy())
+            adj_list[_vertex.copy()].add(fragment.vertices[(i-1)%len(fragment.vertices)].copy())
 
-    adj_matrix = {key: list(value) for key, value in adj_matrix.items()}
+    adj_list = {key: list(value) for key, value in adj_list.items()}
 
-    return adj_matrix
+    return adj_list
 
-def trace_matrix(adj_matrix, max_depth, end_progress):
-    first = min(adj_matrix, key=lambda x: x.distanceTo(IMPACT))
+def trace_adj_list(adj_list, max_depth, end_progress):
+    first = min(adj_list, key=lambda x: x.distanceTo(IMPACT))
     visited = set()
     vertices_queue = []
     vertices_queue.append(first)
@@ -63,7 +63,7 @@ def trace_matrix(adj_matrix, max_depth, end_progress):
         for i in range(len(vertices_queue)):
             head = vertices_queue.pop(0)
             visited.add(head)
-            for tail in adj_matrix[head]:
+            for tail in adj_list[head]:
                 if not tail in visited and head.x() != tail.x() and head.y() != tail.y():
                     vertices_queue.append(tail)
                     if depth == 1:
@@ -92,6 +92,7 @@ def ease_in_out_cubic(t):
     t -= 2
     return 0.5 * (t*t*t + 2)
 
+
 def draw_(t, reset=False):
     global fragments_copy
     background(BG_COLOR)
@@ -109,7 +110,7 @@ def draw_(t, reset=False):
         fill(MAIN_COLOR)
         sup.rect(Rect(Vec2D(0, 0), Vec2D(RECT_W, RECT_H)))
         stroke(STROKE_COLOR)
-        trace_matrix(matrix, int(16 * ease(2 * t)), (16 * ease(2 * t)) % 1)
+        trace_adj_list(adj_list, int(16 * ease(2 * t)), (16 * ease(2 * t)) % 1)
     else:
         fill(MAIN_COLOR)
         noStroke()
@@ -131,7 +132,7 @@ def draw_(t, reset=False):
 
 def setup():
     global sup
-    global matrix
+    global adj_list
     global fragments
     global fragments_copy
     size(W, H)
@@ -140,7 +141,7 @@ def setup():
     sup = ToxiclibsSupport(this)
     fragments = break_rect(RECT_W, RECT_H, 100)
     fragments_copy = copy_fragments(fragments)
-    matrix = make_matrix(fragments)
+    adj_list = make_adj_list(fragments)
 
 def draw():
     global N_SAMPLES
