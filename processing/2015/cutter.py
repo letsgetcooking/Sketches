@@ -200,7 +200,7 @@ def draw_(t, reset=False, sample=0):
             sup.polygon2D(fragment)
         for fragment in debris:
             sup.polygon2D(fragment)
-        if i == 0: filter(BLUR, 1 + 3 * t)
+        if i == 0: filter(BLUR, 3)
 
     popMatrix()
 
