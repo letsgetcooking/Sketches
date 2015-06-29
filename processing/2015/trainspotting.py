@@ -1,6 +1,6 @@
 W = H = 500
 FPS = 20.0
-DURATION = 8
+DURATION = 10
 N_FRAMES = DURATION * FPS
 N_SAMPLES = 1
 N_GRAINS = 10
@@ -10,12 +10,12 @@ FUNCTIONS = [
     lambda t: cos(t * PI) * sin(0.5 * t * PI) * cos(10 * t * PI),
     lambda t: cos(2 * t * PI) * sin(5 * t * PI) * cos(7 * t * PI),
     lambda t: cos(5 * t * PI) * sin(8 * t * PI) * cos(0.2 * t * PI),
-    lambda t: cos(t * PI) * sin(10 * t * PI) * cos(5 * t * PI),
-    lambda t: cos(2 * t * PI) * sin(6 * t * PI) * cos(3 * t * PI)
+    lambda t: cos(2 * t * PI) * sin(6 * t * PI) * cos(3 * t * PI),
+    lambda t: cos(t * PI) * sin(5 * t * PI) * cos(5 * t * PI)
 ]
-WEIGHTS = [25, 4, 6, 10, 2]
+WEIGHTS = [25, 4, 6, 2, 10]
 LIGHT = [(0.15, 0.16), (0.17, 0.2), (0.355, 0.36), (0.365, 0.37), (0.375, 0.38),
-    (0.4, 0.405), (0.415, 0.42), (0.45, 0.48), (0.53, 0.54), (0.55, 0.56), (0.57, 0.58), (0.6, 1.0)]
+    (0.4, 0.405), (0.415, 0.42), (0.45, 0.48), (0.53, 0.54), (0.55, 0.56), (0.57, 0.58), (0.6, 1.25)]
 
 def draw_(t):
     global FUNCTIONS_TMP, WEIGHTS_TMP
@@ -36,10 +36,10 @@ def draw_(t):
     for w, f in zip(WEIGHTS_TMP, FUNCTIONS_TMP):
         lines_black.strokeWeight(w)
         lines_grey.strokeWeight(w)
-        x = 1.2 * W * f(t) * (t + 0.8) / 2 + 2 * W / 3 * constrain(10 * t, 0, 1) - W / 10
+        x = 1.2 * W * f(1.25 * t) * (1.25 * t + 0.8) / 2 + 2 * W / 3 * constrain(10 * 1.25 * t, 0, 1) - W / 10
         lines_black.line(x, 0, x, H)
         lines_grey.line(x, 0, x, H)
-        if -W / 10 > x or x > W + 50:
+        if -W / 10 > x or x > W + 30:
             WEIGHTS_TMP.remove(w)
             FUNCTIONS_TMP.remove(f)
 
@@ -52,10 +52,30 @@ def draw_(t):
     blend(lines_grey, 0, 0, W, H, 0, 0, W, H, LIGHTEST)
 
     for low, high in LIGHT:
-        if low < t < high:
+        if low < 1.25 * t < high:
             blend(text_fg, 0, 0, W, H, 0, 0, W, H, ADD)
 
-    tint(255, 50)
+    loadPixels()
+    if len(FUNCTIONS_TMP) <= 1:
+        fill(0)
+        if len(FUNCTIONS_TMP) == 1:
+            w = 1.2 * W * FUNCTIONS_TMP[0](1.25 * t) * (1.25 * t + 0.8) / 2 + 2 * W / 3 * constrain(10 * 1.25 * t, 0, 1) - W / 10
+        else:
+            w = W
+        w = constrain(w, 0, W)
+        for i in range(H):
+            for j in range(w):
+                c = pixels[i * W + j]
+                if brightness(c) > 100:
+                    stroke(255)
+                    line(j, i, constrain(j + 20 * (1 - constrain(8 * (1.25 * t - 0.9), 0, 1)), 0, w), i)
+    filter(BLUR, 2)
+
+    for low, high in LIGHT:
+        if low < 1.25 * t < high:
+            blend(text_fg, 0, 0, W, H, 0, 0, W, H, ADD)
+
+    tint(255, 40)
     if not frameCount % 3:
         image(grain[grain_ctr], 0, 0)
         grain_ctr = (grain_ctr + 1) % len(grain)
@@ -73,7 +93,7 @@ def setup():
     text_bg.beginDraw()
     text_bg.background(255)
     text_bg.fill(0)
-    font = createFont('Impacted', 48)
+    font = createFont('Franklin Gothic', 48)
     text_bg.textFont(font)
     text_bg.text('TRAINSPOTTING', W / 3, 7 * H / 12)
     text_bg.filter(BLUR, 1)
@@ -81,7 +101,7 @@ def setup():
 
     text_fg = createGraphics(W, H)
     text_fg.beginDraw()
-    font = createFont('Impacted', 48)
+    font = createFont('Franklin Gothic', 48)
     text_fg.textFont(font)
     text_fg.text('TRAINSPOTTING', W / 3, 7 * H / 12)
     text_fg.filter(BLUR, 1)
