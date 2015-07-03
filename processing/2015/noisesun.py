@@ -1,3 +1,5 @@
+# http://letsgetprocessing.tumblr.com/
+
 W = H = 500
 FPS = 20.0
 DURATION = 8
@@ -38,15 +40,15 @@ def draw_(t):
     noFill()
     ellipse(0, 0, 2 * RAD, 2 * RAD)
 
-    # drowing sun beams
+    # drawing sun beams
     n = 160.0
     for i in range(n):
         stroke(MAIN_COLOR)
         strokeWeight(2)
         x_noise, y_noise = polar2cart(RAD, i / n * 2 * PI)
-        x1, y1 = polar2cart(150, i / n * 2 * PI)
+        x1, y1 = polar2cart(RAD + 10, i / n * 2 * PI)
         noise_v = noise(x_noise * 0.02 + 100, y_noise * 0.02 + 200)
-        x2, y2 = polar2cart(150 + noise_v * 100, i / n * 2 * PI)
+        x2, y2 = polar2cart(RAD + 10 + noise_v * 100, i / n * 2 * PI)
         line(x1, y1, x2, y2)
 
     # drawing noise value inside circle
