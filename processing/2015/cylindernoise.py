@@ -58,12 +58,12 @@ class NoisedRect:
                 angle = TWO_PI * x / float(w)
                 a = w / TWO_PI * sin(angle)
                 b = w / TWO_PI * cos(angle)
-                noize_v = noise(a * noise_scale + offset_x, b * noise_scale + offset_y,
+                noise_v = noise(a * noise_scale + offset_x, b * noise_scale + offset_y,
                     y * noise_scale + offset_z)
                 if is_noise_vertical:
                     x, y = y, x
                     w, h = h, w
-                noise_img.pixels[y * w + x] = lerpColor(MAIN_COLOR, SECOND_COLOR, noize_v)
+                noise_img.pixels[y * w + x] = lerpColor(MAIN_COLOR, SECOND_COLOR, noise_v)
         noise_img.updatePixels()
         return noise_img
 
