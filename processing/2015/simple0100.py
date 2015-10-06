@@ -3,8 +3,10 @@ FPS = 20.0
 DURATION = 3
 N_FRAMES = DURATION * FPS
 N_SAMPLES = 4
-BG_COLOR = color(209, 231, 81)
-MAIN_COLOR = color(77, 188, 233)
+BG_COLOR = color(50, 47, 56)
+MAIN_COLOR = color(0, 180, 255)
+BG_FRAME_COLOR = color(5, 5, 15)
+FRAME_COLOR = color(55, 55, 80)
 RECORD = False
 
 
@@ -47,9 +49,44 @@ def draw_cube(x, y, a, r, t):
             bezierVertex(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y)
     endShape()
 
-def draw_(t):
+def draw_frame():
     a = 50
-    r = 5
+    w = 5
+
+    fill(BG_FRAME_COLOR)
+    noStroke()
+    beginShape()
+    vertex(0, 0)
+    vertex(width, 0)
+    vertex(width, height)
+    vertex(0, height)
+    beginContour()
+    vertex(a, a)
+    vertex(a, height - a)
+    vertex(width - a, height - a)
+    vertex(width - a, a)
+    endContour()
+    endShape(CLOSE)
+
+    fill(FRAME_COLOR)
+    stroke(0)
+    strokeWeight(2)
+    beginShape()
+    vertex(a - w, a - w)
+    vertex(width - a + w, a - w)
+    vertex(width - a + w, height - a + w)
+    vertex(a - w, height - a + w)
+    beginContour()
+    vertex(a, a)
+    vertex(a, height - a)
+    vertex(width - a, height - a)
+    vertex(width - a, a)
+    endContour()
+    endShape(CLOSE)
+
+def draw_(t):
+    a = 40
+    r = 3
 
     if 0.0 <= t < 0.5:
         background(BG_COLOR)
@@ -63,10 +100,12 @@ def draw_(t):
 
     tt = (2 * t) % 1
 
-    for i in range(8):
-        for j in range(12):
-            x, y = 2 * i * a + (j % 2) * a - a / 2 - offset, j * a - a / 2
+    for i in range(10):
+        for j in range(18):
+            x, y = 2 * i * a + (j % 2) * a - a / 2 - offset + 10, j * a - a / 2 + 10
             draw_cube(x, y, a, r, tt)
+
+    draw_frame()
 
 def setup():
     size(W, H)
