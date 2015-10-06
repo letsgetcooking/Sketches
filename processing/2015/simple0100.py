@@ -86,7 +86,7 @@ def draw_frame():
 
 def draw_(t):
     a = 40
-    r = 3
+    r = 4
 
     if 0.0 <= t < 0.5:
         background(BG_COLOR)
@@ -140,4 +140,3 @@ def draw():
             saveFrame('gif/####.gif')
         else:
             exit()
-
