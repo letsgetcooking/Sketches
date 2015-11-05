@@ -6,9 +6,9 @@ D = 2.0
 N_FRAMES = D * FPS
 N_SAMPLES = 4.0
 WEIGHT = 3
-MINE_COLOR = color(73, 38, 36)
-BLUR_COLOR = color(255, 215, 0)
-BG_COLOR = color(32, 27, 27)
+MINE_COLOR = color(231, 231, 222)
+BLUR_COLOR = color(0, 0, 0)
+BG_COLOR = color(188, 184, 172)
 RECORD = False
 
 
