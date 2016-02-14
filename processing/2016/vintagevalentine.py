@@ -25,6 +25,9 @@ CENTRAL, LEFTRIGHT, RIGHTLEFT, BOTTOMTOP, TOPBOTTOM, NONE = range(6)
 
 
 class Tree(object):
+    """
+    Must be a singleton-class
+    """
     def __init__(self, val, kids=None, next=None):
         self.val = val
         self.kids = kids
