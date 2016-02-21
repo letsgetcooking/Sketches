@@ -30,14 +30,14 @@ def draw_(t):
     noStroke()
     for i in range(5):
         draw_triangle(width / 2 + (i - 2) * 43 * ease_in_out_cubic(constrain(4 * t, 0, 1))
-            - (i - 2) * 45 * ease_in_out_cubic(constrain(4 * t - 3, 0, 1)),
+            - (i - 2) * 43 * ease_in_out_cubic(constrain(4 * t - 3, 0, 1)),
             height / 2, 100, 0)
 
     noFill()
     stroke(65)
     strokeWeight(5)
     for i in range(10):
-        arc(i * 30 + 115, 330, 30, 30,
+        arc(i * 30 + 115, 320, 30, 30,
             PI * (1 - constrain(10 * ease_in_out_cubic(constrain(4 * t - 1, 0, 1)) - i, 0, 1)),
             PI * (1 - constrain(10 * ease_in_out_cubic(constrain(4 * t - 2, 0, 1)) - i, 0, 1)))
 
