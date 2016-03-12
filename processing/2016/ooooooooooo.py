@@ -51,12 +51,12 @@ def draw_(t):
     for k in range(circles_num):
         offset = (k - int(circles_num / 2)) * PI / 100.0
         a = 4 * TWO_PI + offset
-        x, y = r * sin(tt3 * a) + width / 2, r * cos(tt3 * a) - r * (1 - tt1) + height / 2
+        x, y = r * cos(tt3 * a) + width / 2, r * sin(tt3 * a) - r * (1 - tt1) + height / 2
         ellipse(x, y, 2 * erad, 2 * erad)
         for i in range(1, int(n)):
             angle = i / n * TWO_PI * tt1 + tt3 * a
             if angle < PI / 200.0: continue
-            x, y = r * sin(angle) + width / 2, r * cos(angle) - r * (1 - tt1) + height / 2
+            x, y = r * cos(angle) + width / 2, r * sin(angle) - r * (1 - tt1) + height / 2
             ellipse(x, y, 2 * erad, 2 * erad)
 
 def setup():
