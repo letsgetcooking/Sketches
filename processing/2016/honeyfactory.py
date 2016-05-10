@@ -99,36 +99,36 @@ class Cell(object):
 
     def display(self):
         if not self.enabled: return
-        vertecies = []
+        vertices = []
         for i in range(6):
             x, y = self.radius * cos(i / 6.0 * TWO_PI), self.radius * sin(i / 6.0 * TWO_PI)
             v = Vec3D(x, y, self.z)
-            vertecies.append(v)
+            vertices.append(v)
         r = self.radius + GAP / 2
         if self.type == T0:
-            axis = vertecies[2].sub(vertecies[3]).getNormalized()
+            axis = vertices[2].sub(vertices[3]).getNormalized()
             bias = Vec3D(r * cos(0), r * sin(0), 0)
         elif self.type == T60:
-            axis = vertecies[3].sub(vertecies[4]).getNormalized()
+            axis = vertices[3].sub(vertices[4]).getNormalized()
             bias = Vec3D(r * cos(TWO_PI / 6), r * sin(TWO_PI / 6), 0)
         elif self.type == T120:
-            axis = vertecies[4].sub(vertecies[5]).getNormalized()
+            axis = vertices[4].sub(vertices[5]).getNormalized()
             bias = Vec3D(r * cos(2 * TWO_PI / 6), r * sin(2 * TWO_PI / 6), 0)
         elif self.type == T180:
-            axis = vertecies[5].sub(vertecies[0]).getNormalized()
+            axis = vertices[5].sub(vertices[0]).getNormalized()
             bias = Vec3D(r * cos(3 * TWO_PI / 6), r * sin(3 * TWO_PI / 6), 0)
         elif self.type == T240:
-            axis = vertecies[0].sub(vertecies[1]).getNormalized()
+            axis = vertices[0].sub(vertices[1]).getNormalized()
             bias = Vec3D(r * cos(4 * TWO_PI / 6), r * sin(4 * TWO_PI / 6), 0)
         elif self.type == T300:
-            axis = vertecies[1].sub(vertecies[2]).getNormalized()
+            axis = vertices[1].sub(vertices[2]).getNormalized()
             bias = Vec3D(r * cos(5 * TWO_PI / 6), r * sin(5 * TWO_PI / 6), 0)
         else:
             axis = None
             bias = None
 
         beginShape()
-        for v in vertecies:
+        for v in vertices:
             if axis and bias:
                 v.addSelf(bias)
                 v.rotateAroundAxis(axis,
