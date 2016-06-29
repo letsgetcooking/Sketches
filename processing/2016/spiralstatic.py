@@ -7,7 +7,7 @@ FPS = 20.0
 DURATION = 2
 N_FRAMES = DURATION * FPS
 N_SAMPLES = 4
-BG_COLOR = color(35)
+BG_COLOR = color(30, 30, 30)
 MAIN_COLOR = color(0)
 RECORD = False
 
@@ -55,7 +55,7 @@ def draw_shape(shape, res, w, t, scolor=None, pg=None):
         k = 20.0
         fat_k = (1 - ((constrain(i / k, 0, 1) - 1) ** 8)) \
                 * (1 - (constrain((i - res + k) / k, 0, 1) ** 8))
-        fat_k = fat_k * (i / float(res) * 0.85 + 0.15)
+        fat_k = fat_k * (i / float(res) * 0.9 + 0.1)
         p = shape.getPoint(i / float(res))
         pg.fill(colors.get(int((i + t * res) % res)).toARGB())
         pg.ellipse(p.x, p.y, w * fat_k, w * fat_k)
@@ -85,7 +85,7 @@ def draw_(t):
 
     PALETTE = ((0.05,0.05,0.05), )
 
-    draw_shape(path, 3000, 10, 0)
+    draw_shape(path, 3000, 13, 0)
     filter(BLUR, 2)
 
     PALETTE = ((247,182,121), (231,124,124), (181,92,108),
@@ -120,16 +120,16 @@ def draw_(t):
                     p2 = p1
                     p1 = points[0]
         if i < n * 0.3:
-            fatness = 1.8 * (i / float(n) * 0.25 + 0.75)
+            fatness = 1.2 * (i / float(n) * 0.25 + 0.75)
         else:
-            fatness = 1.8 * ((((i - 0.3 * n) / (0.7 * n) - 1) ** 2) * 0.75 + 0.25)
-        draw_line(p1.x, p1.y, p2.x, p2.y, fatness, t)
+            fatness = 1.2 * ((((i - 0.3 * n) / (0.7 * n) - 1) ** 2) * 0.75 + 0.25)
+        draw_line(p1.x, p1.y, p2.x, p2.y, fatness, 1 - t)
 
     PALETTE = ((247,182,121), (231,124,124), (181,92,108),
         (97,48,93), (247,182,121))
     PALETTE = [[comp / 255.0 for comp in col] for col in PALETTE]
 
-    draw_shape(path, 3000, 8, 0)
+    draw_shape(path, 3000, 10, 0)
 
 def setup():
     global path
