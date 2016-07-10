@@ -1,11 +1,11 @@
 W = H = 500
 FPS = 20.0
-DURATION = 8
+DURATION = 6
 N_FRAMES = DURATION * FPS
 N_SAMPLES = 1
-BG_COLOR = color(23, 178, 230)
+BG_COLOR = color(46,148,185)
 MAIN_COLOR = color(255)
-LIVE_LEAF_COLOR = color(220, 65, 25)
+LIVE_LEAF_COLOR = color(210,85,101)
 DEAD_LEAF_COLOR = color(65, 175, 230)
 RECORD = False
 
@@ -64,11 +64,11 @@ class Tree(object):
         branch.display()
         translate(0, -branch.length)
         if branch.left:
-            self.__display_branch(branch.left, windforce * 1.1, bg=bg)
+            self.__display_branch(branch.left, windforce * 1.3, bg=bg)
         if branch.right:
-            self.__display_branch(branch.right, windforce * 1.1, bg=bg)
+            self.__display_branch(branch.right, windforce * 1.3, bg=bg)
         if bg and branch.middle:
-            self.__display_branch(branch.middle, windforce * 1.05, bg=bg)
+            self.__display_branch(branch.middle, windforce * 1.1, bg=bg)
         popMatrix()
 
     def __make_tree(self, branch, depth):
@@ -96,12 +96,12 @@ class Tree(object):
             return
 
         if branch.left:
-            self.__spray(branch.left, particles, c, d, t * 1.1)
+            self.__spray(branch.left, particles, c, d, t * 1.3)
         if branch.right:
-            self.__spray(branch.right, particles, c, d, t * 1.1)
+            self.__spray(branch.right, particles, c, d, t * 1.3)
 
     def display(self, t):
-        tt = PI / 150.0 * (sin(t * TWO_PI) + 1) / 2.0
+        tt = PI / 120.0 * (sin(t * TWO_PI) + 1) / 2.0
 
         pushMatrix()
         stroke(200)
@@ -112,7 +112,7 @@ class Tree(object):
 
     def spray_particles(self, t):
         particles = []
-        tt = PI / 150.0 * (sin(t * TWO_PI) + 1) / 2.0
+        tt = PI / 120.0 * (sin(t * TWO_PI) + 1) / 2.0
         self.__spray(self.root, particles, PVector(0, 0), PVector(0, -1), tt)
         return particles
 
@@ -131,7 +131,7 @@ def draw_(t):
     # bezier(0, height - 20, 40, height - 20, width - 90, height - 20, width, height - 90);
     img = loadImage('gif/' + nf(frameCount, 4) + '.gif')
     image(img, 0, 0)
-
+    
     pushMatrix()
     translate(width / 3, height - 25)
     # tree.display(t)
@@ -211,3 +211,4 @@ def draw():
             saveFrame('gif_final/####.gif')
         else:
             exit()
+            
