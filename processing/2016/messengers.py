@@ -18,7 +18,7 @@ class Particle(object):
     def display(self, t):
         tt = 1 - (max(0, t - self.start) - 1) ** 2
 
-        center = PVector(-1.3 * width / 3, 90)
+        center = PVector(-1.35 * width / 3, 90)
         center.sub(PVector(self.x, self.y))
         center.normalize()
         center.mult(-1.2 * width)
@@ -27,8 +27,8 @@ class Particle(object):
         pos.add(center)
 
         fill(LIVE_LEAF_COLOR)
-        ellipse(pos.x + noise(pos.x * 0.005 + self.x) * 130 * tt, \
-            pos.y + noise(pos.y * 0.005 + self.y) * 130 * tt, 5, 5)
+        ellipse(pos.x + noise(pos.x * 0.003 + self.x) * 200 * tt, \
+            pos.y + noise(pos.y * 0.003 + self.y) * 200 * tt, 5, 5)
 
 
 class Branch(object):
@@ -128,8 +128,8 @@ def draw_(t):
     strokeWeight(5)
 
     # noFill()
-    # bezier(0, height - 20, 40, height - 20, width - 90, height - 20, width, height - 90);
-    img = loadImage('gif/' + nf(frameCount, 4) + '.gif')
+    # bezier(0, height - 20, 40, height - 20, width - 90, height - 20, width, height - 60);
+    img = loadImage('gif_temp/' + nf(frameCount, 4) + '.gif')
     image(img, 0, 0)
     
     pushMatrix()
@@ -140,7 +140,7 @@ def draw_(t):
     fill(LIVE_LEAF_COLOR)
     strokeWeight(1)
 
-    if t < 0.6 and random(1) < 0.5 + 0.5 * t:
+    if t < 0.5 and random(1) < 0.5 + t:
         dead = int(random(len(ps)))
         if not dead in deads:
             particles.append(Particle(ps[dead].x, ps[dead].y, t))
@@ -190,7 +190,7 @@ def draw():
         t = (frameCount / float(N_FRAMES)) % 1.0
         draw_(t)
         if frameCount <= N_FRAMES:
-            saveFrame('gif_final/####.gif')
+            saveFrame('gif/####.gif')
         else:
             exit()
     else:
@@ -208,7 +208,7 @@ def draw():
             pixels[i] = color(rgb[0] / N_SAMPLES, rgb[1] / N_SAMPLES, rgb[2] / N_SAMPLES)
         updatePixels()
         if frameCount <= N_FRAMES:
-            saveFrame('gif_final/####.gif')
+            saveFrame('gif/####.gif')
         else:
             exit()
             
